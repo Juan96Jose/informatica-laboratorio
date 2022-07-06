@@ -1,0 +1,148 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+ 
+using namespace std;
+ 
+struct Producto{
+ int codigo;
+ string nombre;
+ string descripcion;
+ string presentacion;
+float precio;
+};
+ 
+void menu();
+void ingresar(vector<Producto> &v);
+void modificar(vector<Producto> &v, int i);
+int buscar(vector<Producto> v, int cod);
+void mostrar(vector<Producto> v, int i);
+void eliminar(vector<Producto> &v);
+ 
+void menu(){
+	   printf("\n----MENU DE OPCIONES----"
+	         "\n***********************"
+			 "\n1.- Ingresar Producto"
+			 "\n2.- Modificar Producto"
+			 "\n3.- Buscar Producto"
+			 "\n4.- Eliminar Producto"
+			 "\n5.- Salir"
+			 "\n***********************"
+			 "\nSU OPCION: ");
+		}
+ 
+ int main(){
+int cod, id;
+int opcion;
+vector<Producto> productos;
+ 
+do {
+ menu();
+		scanf( "%s",&opcion);
+  			switch(opcion) {
+				case '1':
+ 					ingresar(productos);
+ 					break;
+ 				case '2':
+ 					printf("\nCodigo a modificar: ");
+					scanf("%d",&cod);
+ 					id = buscar(productos, cod);
+  						if (id != -1) {
+  							system("cls");
+ 						mostrar(productos, id);
+						  modificar(productos, id);
+									} 	else
+ 							printf("\n\nPRODUCTO NO ENCONTRADO");
+ 										break;
+				case '3':
+ 					printf( "\nCodigo a buscar: ");
+					scanf("%d",&cod);
+ 
+ 					id = buscar(productos, cod);
+ 					if (id != -1) mostrar(productos, id);
+ 
+ 					else
+					  printf("\n\nPRODUCTO NO ENCONTRADO" );
+ 						break;
+				case '4':
+ 					eliminar(productos);
+ 						break;
+				case '5':
+ 					printf("\n\nFIN DEL PROGRAMA");
+					 return EXIT_SUCCESS;
+  					default:
+						printf("\n\nOPCION NO VALIDA"); break;
+			}
+ } while (opcion >= 5);
+ return 0;}
+ 
+ 
+ 
+void ingresar(vector<Producto> &v)
+{
+	system("cls");
+ Producto p;
+	printf( "\nNuevo Producto:\n");
+ 
+		printf("Codigo: ");
+			cin >> p.codigo;
+			cin.ignore(80, '\n');
+ 		printf("Nombre: ");
+			getline(cin, p.nombre);
+		printf("Descripcion: ");
+ 			getline(cin, p.descripcion);
+ 		printf("Empresa: ");
+			getline(cin, p.presentacion);
+		printf("Precio: ");
+		cin>>p.precio;
+ 		v.push_back(p);
+ 		system("cls");
+}
+ 
+ void modificar(vector<Producto> &v,int i)
+{
+ 
+ 			cin.ignore(80, '\n');
+		printf( "\n\nNuevo Nombre: ");
+ 			getline(cin, v[i].nombre);
+	    printf( "Nueva Descripcion: ");
+			getline(cin, v[i].descripcion);
+		printf( "Nueva Empresa: ");
+			getline(cin, v[i].presentacion);
+ 		printf( "Nuevo Precio: ");
+		 scanf("%f",&v[i].precio);
+		 system("cls");
+		 }
+ 
+int buscar(vector<Producto> v, int cod)
+{
+	int pos = 0;
+  	while (pos < v.size() && v[pos].codigo != cod)
+	  pos++;
+	if (pos >= v.size())
+	  pos = -1;
+  	return pos;
+ }
+ 
+ void mostrar(vector<Producto> v, int i)
+{
+ 
+   cout << "\nNombre: "
+ 		<< v[i].nombre
+		<< "\nDescripcion: "
+		<< v[i].descripcion
+		<< "\nEmpresa: "
+		<< v[i].presentacion
+		<< "\nPrecio: "
+		<< v[i].precio << endl;
+ 
+}
+ 
+void eliminar(vector<Producto> &v)
+{
+ 
+ 
+ }
